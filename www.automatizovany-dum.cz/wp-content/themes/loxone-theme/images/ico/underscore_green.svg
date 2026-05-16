@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="8" viewBox="0 0 32 8">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #74c348;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Obdélník_23" data-name="Obdélník 23" class="cls-1" d="M298,208h24l8-8H298v8Z" transform="translate(-298 -200)"/>
+</svg>
