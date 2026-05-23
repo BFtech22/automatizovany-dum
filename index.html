@@ -316,6 +316,54 @@
   }
   .feature img { border-radius: 12px; border: 1px solid var(--line); }
 
+  /* AUDIENCE / CÍLOVKA */
+  .audience { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .aud-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 36px 34px;
+    display: flex; flex-direction: column;
+    transition: transform .25s ease, border-color .25s ease;
+  }
+  .aud-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .aud-ico {
+    width: 56px; height: 56px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(105,181,0,0.12); color: var(--accent);
+    margin: 0 0 20px;
+  }
+  .aud-ico svg { width: 30px; height: 30px; }
+  .aud-card h3 { margin: 0 0 8px; font-size: clamp(22px, 2.4vw, 28px); font-weight: 900; }
+  .aud-card > p { margin: 0 0 20px; color: var(--text-dim); }
+  .aud-card ul { list-style: none; padding: 0; margin: 0 0 26px; flex: 1; }
+  .aud-card ul li {
+    position: relative;
+    padding: 11px 0 11px 26px;
+    border-top: 1px solid var(--line);
+    color: var(--text-dim); font-size: 15px;
+  }
+  .aud-card ul li:first-child { border-top: none; }
+  .aud-card ul li strong { color: var(--text); font-weight: 800; }
+  .aud-card ul li::before {
+    content: "";
+    position: absolute; left: 0; top: 19px;
+    width: 14px; height: 2px; background: var(--accent);
+  }
+  .aud-card .btn { align-self: flex-start; }
+
+  /* WHATSAPP FLOATING BUTTON */
+  .wa-float {
+    position: fixed; right: 22px; bottom: 22px; z-index: 90;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: #25D366;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.45);
+    transition: transform .2s ease;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+  .wa-float svg { width: 32px; height: 32px; display: block; }
+
   /* REFERENCES */
   .refs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
   .ref {
@@ -324,6 +372,8 @@
     border-radius: 14px;
     overflow: hidden;
     transition: border-color .25s ease, transform .25s ease;
+    display: flex;
+    flex-direction: column;
   }
   .ref:hover { border-color: var(--accent); transform: translateY(-3px); }
   .ref .photos {
@@ -331,14 +381,17 @@
     grid-template-columns: 1fr 1fr;
     gap: 2px;
     background: #000;
-    aspect-ratio: 16 / 7;
+    flex-shrink: 0;
   }
   .ref .photos img {
-    width: 100%; height: 100%;
+    width: 100%;
+    aspect-ratio: 8 / 7;
+    height: auto;
     object-fit: cover;
     display: block;
   }
-  .ref .info { padding: 22px 24px 24px; }
+  .ref .photos.photos-portrait img { aspect-ratio: 3 / 4; }
+  .ref .info { padding: 22px 24px 24px; flex: 1; }
   .ref .num {
     display: inline-block;
     background: rgba(105,181,0,0.15);
@@ -353,6 +406,19 @@
   }
   .ref h3 { margin: 0 0 8px; font-size: 19px; font-weight: 900; line-height: 1.25; }
   .ref p { margin: 0; color: var(--text-dim); font-size: 14px; line-height: 1.55; }
+
+  /* REFERENCE GROUPS */
+  .ref-group + .ref-group { margin-top: 50px; }
+  .ref-group-head {
+    display: flex; align-items: center; gap: 14px;
+    margin: 0 0 24px;
+  }
+  .ref-group-head h3 {
+    margin: 0; font-weight: 900;
+    font-size: clamp(20px, 2.4vw, 26px);
+    white-space: nowrap;
+  }
+  .ref-group-head .rule { flex: 1; height: 2px; background: var(--line); border-radius: 2px; }
 
   /* CONTACT FORM (BF technology style adapted) */
   .contact-section {
@@ -522,6 +588,9 @@
     .contact-form .row { grid-template-columns: 1fr; }
     .contact-section { padding: 56px 0; }
     .ref h3 { font-size: 17px; }
+    .audience { grid-template-columns: 1fr; }
+    .wa-float { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+    .wa-float svg { width: 28px; height: 28px; }
   }
   @media (max-width: 380px) {
     .topbar .contact-mini { flex-direction: column; gap: 4px; align-items: center; }
@@ -568,6 +637,7 @@
     </a>
 
     <nav class="primary">
+      <a href="#reseni">Pro koho</a>
       <a href="#sluzby">Služby</a>
       <a href="#proc">Proč Loxone</a>
       <a href="#reference">Reference</a>
@@ -586,6 +656,7 @@
   <button class="close" id="closeBtn" aria-label="Zavřít menu">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M6 18L18 6"/></svg>
   </button>
+  <a href="#reseni">Pro koho</a>
   <a href="#sluzby">Služby</a>
   <a href="#proc">Proč Loxone</a>
   <a href="#reference">Reference</a>
@@ -628,6 +699,47 @@
   </div>
 </section>
 
+<!-- PRO KOHO / CÍLOVKA -->
+<section class="block" id="reseni">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Pro koho</p>
+      <h2>Dvě cesty, jeden chytrý systém</h2>
+      <p>Inteligentní instalace dává smysl doma i ve firmě — liší se jen priority. Vyberte větev, která je vám blízká.</p>
+    </div>
+    <div class="audience">
+      <article class="aud-card">
+        <div class="aud-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1V9.5z"/></svg>
+        </div>
+        <h3>Pro rodinné domy a byty</h3>
+        <p>Bydlení, které se stará samo — pohodlné, bezpečné a úsporné každý den.</p>
+        <ul>
+          <li><strong>Komfort</strong> — světla, stínění, audio i scény na jeden dotyk</li>
+          <li><strong>Bezpečí</strong> — alarm, kamery a hlídání úniků v jednom systému</li>
+          <li><strong>Design</strong> — čisté stěny bez změti vypínačů a krabiček</li>
+          <li><strong>Úspory</strong> — chytré vytápění a řízení spotřeby domácnosti</li>
+        </ul>
+        <a class="btn btn-ghost" href="#kontakt">Chci chytrou domácnost</a>
+      </article>
+      <article class="aud-card">
+        <div class="aud-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21h20V9l-7 4V9l-7 4V5H2z"/><path d="M7 21v-4M12 21v-4M17 21v-4"/></svg>
+        </div>
+        <h3>Pro firmy a průmysl</h3>
+        <p>Energetický management, který reálně snižuje provozní náklady budovy.</p>
+        <ul>
+          <li><strong>EMS</strong> — energetický management celé budovy v jednom systému</li>
+          <li><strong>Optimalizace FVE</strong> — maximální využití vlastní výroby elektřiny</li>
+          <li><strong>SPOTový trh</strong> — nákup energie v nejlevnějších hodinách dne</li>
+          <li><strong>Bateriová úložiště BESS</strong> — ukládání energie a záloha provozu</li>
+        </ul>
+        <a class="btn btn-ghost" href="#kontakt">Chci řešit energie</a>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- SLUZBY -->
 <section class="block" id="sluzby">
   <div class="container">
@@ -651,7 +763,7 @@
         </div>
       </article>
       <article class="card">
-        <div class="img-wrap"><img src="assets/loxone/poster-trilogy.png" alt="Loxone produkty"></div>
+        <div class="img-wrap"><img src="foto/loxone_config.jpeg" alt="Programování logiky v aplikaci Loxone Config" style="object-position:top;"></div>
         <div class="body">
           <h3>Instalace &amp; programování</h3>
           <p>Kompletní realizace technologické části domu — silnoproud, slaboproud i logika Loxone Miniserveru.</p>
@@ -686,12 +798,11 @@
     <div>
       <p class="eyebrow" style="color:var(--accent); font-size:13px; font-weight:800; letter-spacing:2px; text-transform:uppercase; margin:0 0 12px;">Proč Loxone</p>
       <h3>Jeden systém. <span>Bez aplikací pro každý vypínač.</span></h3>
-      <p>Loxone není „chytrý vypínač + Wi-Fi krabička". Je to skutečný řídicí systém pro celý dům — vytápění, stínění, osvětlení, audio, zabezpečení, energetiku, fotovoltaiku.</p>
+      <p>Zapomeňte na stěny plné vypínačů a desítky aplikací v telefonu. Jedním designovým tlačítkem ovládáte světla, hudbu i stínění. Při odchodu z domu jedním stiskem zhasnete a uzamknete celý objekt.</p>
       <ul>
-        <li>Centrální řízení bez závislosti na cloudu</li>
-        <li>Funguje i bez internetu</li>
+        <li><strong>Absolutní soukromí a spolehlivost:</strong> Vaše data nikam neodcházejí. Dům funguje lokálně a 100% spolehlivě, i když vypadne internet. Žádné měsíční poplatky za cloudové služby.</li>
         <li>Jedna aplikace, jeden ovladač, jedna logika</li>
-        <li>Otevřené integrace na bránové systémy a HVAC</li>
+        <li><strong>Inteligentní řízení energií:</strong> Topení, fotovoltaika, baterie i žaluzie spolu poprvé v životě mluví. Dům v létě raději zatáhne stínění, než aby zapínal drahou klimatizaci.</li>
       </ul>
     </div>
     <div><img src="assets/loxone/3d-house-text.png" alt="Funkce automatizovaného domu"></div>
@@ -706,104 +817,132 @@
       <h2>Co jsme realizovali</h2>
       <p>Vybrané projekty od showroomů, přes hotely a kempy, až po průmyslové instalace BESS úložišť a FVE.</p>
     </div>
-    <div class="refs-grid">
+    <div class="ref-group">
+      <div class="ref-group-head">
+        <h3>Rodinné domy a byty</h3>
+        <span class="rule"></span>
+      </div>
+      <div class="refs-grid">
 
-      <article class="ref">
-        <div class="photos">
-          <img src="foto/1_a.jpeg" alt="Showroom Krásná Lípa – foto 1" loading="lazy">
-          <img src="foto/1_b.jpg" alt="Showroom Krásná Lípa – foto 2" loading="lazy">
-        </div>
-        <div class="info">
-          <span class="num">01</span>
-          <h3>Showroom Krásná Lípa</h3>
-          <p>Kompletní smarthome včetně audioserveru, řízení osvětlení, bazénu, FVE, elektrozámku a intercomu.</p>
-        </div>
-      </article>
+        <article class="ref">
+          <div class="photos">
+            <img src="foto/1_a.jpeg" alt="Showroom Krásná Lípa – foto 1" loading="lazy">
+            <img src="foto/1_b.jpg" alt="Showroom Krásná Lípa – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">01</span>
+            <h3>Showroom Krásná Lípa</h3>
+            <p>Kompletní smarthome včetně audioserveru, řízení osvětlení, bazénu, FVE, elektrozámku a intercomu.</p>
+          </div>
+        </article>
 
-      <article class="ref">
-        <div class="photos">
-          <img src="foto/2_a.jpeg" alt="Pivovar Falkenštejn – foto 1" loading="lazy">
-          <img src="foto/2_b.jpeg" alt="Pivovar Falkenštejn – foto 2" loading="lazy">
-        </div>
-        <div class="info">
-          <span class="num">02</span>
-          <h3>Pivovar Falkenštejn, Krásná Lípa</h3>
-          <p>Integrace chytrých hlavic na pokojích pro hosty, řízení podlahového topení, monitoring otevřených oken, přístupový systém s klávesnicí.</p>
-        </div>
-      </article>
+        <article class="ref">
+          <div class="photos">
+            <img src="foto/3_a.jpg" alt="RD Krásná Lípa – foto 1" loading="lazy">
+            <img src="foto/3_b.jpeg" alt="RD Krásná Lípa – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">02</span>
+            <h3>Rodinný dům v Krásné Lípě</h3>
+            <p>Kompletní smarthome — přístup, světla, audio.</p>
+          </div>
+        </article>
 
-      <article class="ref">
-        <div class="photos">
-          <img src="foto/3_a.jpg" alt="RD Krásná Lípa – foto 1" loading="lazy">
-          <img src="foto/3_b.jpeg" alt="RD Krásná Lípa – foto 2" loading="lazy">
-        </div>
-        <div class="info">
-          <span class="num">03</span>
-          <h3>Rodinný dům v Krásné Lípě</h3>
-          <p>Kompletní smarthome — přístup, světla, audio.</p>
-        </div>
-      </article>
+        <article class="ref">
+          <div class="photos photos-portrait">
+            <img src="foto/ludvikovice_a.jpg" alt="RD Ludvíkovice – foto 1" loading="lazy">
+            <img src="foto/ludvikovice_b.jpg" alt="RD Ludvíkovice – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">03</span>
+            <h3>Rodinný dům v Ludvíkovicích</h3>
+            <p>Řízení osvětlení, fotovoltaiky, integrace kamerového systému.</p>
+          </div>
+        </article>
 
-      <article class="ref">
-        <div class="photos">
-          <img src="foto/4_a.jpeg" alt="CATL baterie – foto 1" loading="lazy">
-          <img src="foto/4_b.jpeg" alt="CATL baterie – foto 2" loading="lazy">
-        </div>
-        <div class="info">
-          <span class="num">04</span>
-          <h3>Řízení 2× 232 kWh baterií CATL</h3>
-          <p>Kompletní EMS řízení baterie včetně SPOTového řízení.</p>
-        </div>
-      </article>
+        <article class="ref">
+          <div class="photos photos-portrait">
+            <img src="foto/rumburk_a.jpg?v=4" alt="Byt v Rumburku – foto 1" loading="lazy">
+            <img src="foto/rumburk_b.jpg?v=4" alt="Byt v Rumburku – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">04</span>
+            <h3>Byt v Rumburku</h3>
+            <p>Chytrý byt v centru města — řízení vytápění, osvětlení a stínění z jednoho ovladače, doplněné o náladové RGB podsvícení a detekci pohybu.</p>
+          </div>
+        </article>
 
-      <article class="ref">
-        <div class="photos">
-          <img src="foto/5_a.webp" alt="Hotel Lužan – foto 1" loading="lazy">
-          <img src="foto/5_b.jpeg" alt="Hotel Lužan – foto 2" loading="lazy">
-        </div>
-        <div class="info">
-          <span class="num">05</span>
-          <h3>Hotel Lužan</h3>
-          <p>Spotové řízení FVE včetně baterií.</p>
-        </div>
-      </article>
+      </div>
+    </div>
 
-      <article class="ref">
-        <div class="photos">
-          <img src="assets/loxone/noimage.svg" alt="RD Ludvíkovice – foto 1">
-          <img src="assets/loxone/noimage.svg" alt="RD Ludvíkovice – foto 2">
-        </div>
-        <div class="info">
-          <span class="num">06</span>
-          <h3>Rodinný dům v Ludvíkovicích</h3>
-          <p>Řízení osvětlení, fotovoltaiky, integrace kamerového systému.</p>
-        </div>
-      </article>
+    <div class="ref-group">
+      <div class="ref-group-head">
+        <h3>Firmy a průmysl</h3>
+        <span class="rule"></span>
+      </div>
+      <div class="refs-grid">
 
-      <article class="ref">
-        <div class="photos">
-          <img src="foto/7_a.jpg" alt="Kemp Děčín – foto 1" loading="lazy">
-          <img src="foto/7_b.jpg" alt="Kemp Děčín – foto 2" loading="lazy">
-        </div>
-        <div class="info">
-          <span class="num">07</span>
-          <h3>Kemp Děčín</h3>
-          <p>Velká integrace ohřevu bojlerů v kempu dle obsazenosti — snímání aktuální teploty, maximální využití fotovoltaiky pro ohřev.</p>
-        </div>
-      </article>
+        <article class="ref">
+          <div class="photos">
+            <img src="foto/2_a.jpeg" alt="Pivovar Falkenštejn – foto 1" loading="lazy">
+            <img src="foto/2_b.jpeg" alt="Pivovar Falkenštejn – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">01</span>
+            <h3>Pivovar Falkenštejn, Krásná Lípa</h3>
+            <p>Integrace chytrých hlavic na pokojích pro hosty, řízení podlahového topení, monitoring otevřených oken, přístupový systém s klávesnicí.</p>
+          </div>
+        </article>
 
-      <article class="ref">
-        <div class="photos">
-          <img src="assets/loxone/noimage.svg" alt="Agile Vysoké Mýto – foto 1">
-          <img src="assets/loxone/noimage.svg" alt="Agile Vysoké Mýto – foto 2">
-        </div>
-        <div class="info">
-          <span class="num">08</span>
-          <h3>Agile Vysoké Mýto – objekt Tesco</h3>
-          <p>Monitoring FVE a BESS bateriového úložiště.</p>
-        </div>
-      </article>
+        <article class="ref">
+          <div class="photos">
+            <img src="foto/4_a.jpeg" alt="CATL baterie – foto 1" loading="lazy">
+            <img src="foto/4_b.jpeg" alt="CATL baterie – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">02</span>
+            <h3>Řízení 2× 232 kWh baterií CATL</h3>
+            <p>Kompletní EMS řízení baterie včetně SPOTového řízení.</p>
+          </div>
+        </article>
 
+        <article class="ref">
+          <div class="photos">
+            <img src="foto/5_a.webp" alt="Hotel Lužan – foto 1" loading="lazy">
+            <img src="foto/5_b.jpeg" alt="Hotel Lužan – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">03</span>
+            <h3>Hotel Lužan</h3>
+            <p>Spotové řízení FVE včetně baterií.</p>
+          </div>
+        </article>
+
+        <article class="ref">
+          <div class="photos">
+            <img src="foto/7_a.jpg" alt="Kemp Děčín – foto 1" loading="lazy">
+            <img src="foto/7_b.jpg" alt="Kemp Děčín – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">04</span>
+            <h3>Kemp Děčín</h3>
+            <p>Velká integrace ohřevu bojlerů v kempu dle obsazenosti — snímání aktuální teploty, maximální využití fotovoltaiky pro ohřev.</p>
+          </div>
+        </article>
+
+        <article class="ref">
+          <div class="photos">
+            <img src="foto/agile_a.jpg" alt="Agile Vysoké Mýto – foto 1" loading="lazy">
+            <img src="foto/agile_b.jpg" alt="Agile Vysoké Mýto – foto 2" loading="lazy">
+          </div>
+          <div class="info">
+            <span class="num">05</span>
+            <h3>Agile Vysoké Mýto – objekt Tesco</h3>
+            <p>Monitoring FVE a BESS bateriového úložiště.</p>
+          </div>
+        </article>
+
+      </div>
     </div>
   </div>
 </section>
@@ -925,6 +1064,11 @@
     </div>
   </div>
 </footer>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/420776111100?text=Dobr%C3%BD%20den%2C%20m%C3%A1m%20z%C3%A1jem%20o%20konzultaci%20k%20chytr%C3%A9%20instalaci%20Loxone." target="_blank" rel="noopener" aria-label="Napsat na WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#fff" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+</a>
 
 <script>
   (function() {
